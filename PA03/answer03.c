@@ -148,3 +148,18 @@ int compareCharacter(const void * prime1, const void * prime2)
   return(*(char*)prime1 - *(char*)prime2); 
 
 }
+
+
+void destroyStringArray(char * * strArr, int len)
+{
+  //Variables
+  int i1=0;
+
+  //Executions
+  while(i1<len)
+    {
+      free(strArr[i1]);
+    }
+  free(strArr);
+  return;
+}
