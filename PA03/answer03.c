@@ -52,3 +52,47 @@ char * strcat_ex(char * * dest, int * n, const char * src)
 
 }
 
+char * * explode(const char * str, const char * delims, int * arrLen)
+{
+  //Variables
+  const char *position= str;
+  *arrLen=1;
+
+  //Executions
+  while(*position!='\0')
+    {
+      if(strchr(delims,*position))
+	{
+	  *arrLen=*arrLen+1;
+	}
+      position++;
+    }
+  
+  char * * stringArr=malloc(*arrLen * sizeof(char*));
+  
+  int index1=0;
+  const char *begin=str;
+  position = str;
+
+  while(*position!='\0')
+    {
+      if(strchr(delims, *position))
+	{
+	  int length = position - begin;
+	  stringArr[index1]= malloc( (1+length) * sizeof(char));
+	  
+	  memcpy(stringArr[index1],begin,(length)*sizeof(char));
+	  stringArr[index1][length]='\0';
+	  index1=index1+1;
+	  begin= position+1;
+	}
+      position=position+1;
+    }
+
+  int length=position - begin;
+  stringArr[index1]=malloc((1+length)*sizeof(char));
+  memcpy(stringArr[index1],begin,(length)*sizeof(char));
+  stringArr[index1][length]='\0';
+  return stringArr;
+
+}
