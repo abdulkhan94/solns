@@ -96,3 +96,43 @@ char * * explode(const char * str, const char * delims, int * arrLen)
   return stringArr;
 
 }
+
+
+char * implode(char * * strArr, int len, const char * glue)
+{
+  //Variables
+  int i=0;
+
+  int length=0;
+
+  char * string1 = malloc(1*sizeof(char));
+  strcpy(string1, "");
+  
+  //Executions
+  while(i<length)
+    {
+      string1= strcat_ex(&string1,&length,strArr[i]);
+      if((i+1)!=length)
+	{
+	  string1=strcat_ex(&string1,&length,glue);
+	}
+      i=i+1;
+    }
+  
+  return string1;
+
+
+}
+
+
+void sortStringArray(char * * arrString, int len)
+{
+  qsort(arrString, len, sizeof(char*),comparison);
+
+}
+
+int comparison(const void * prime1, const void * prime2)
+{
+  return(strcmp(*(char**) prime1, *(char**) prime2));
+
+}
