@@ -137,16 +137,17 @@ int comparison(const void * prime1, const void * prime2)
 
 }
 
-void sortStringCharacters(char * str)
-{
-  qsort(str,strlen(str),sizeof(char),compareCharacter);
-  return;
-}
 
 int compareCharacter(const void * prime1, const void * prime2)
 {
   return(*(char*)prime1 - *(char*)prime2); 
 
+}
+
+void sortStringCharacters(char * str)
+{
+  qsort(str,strlen(str),sizeof(char),compareCharacter);
+  return;
 }
 
 
