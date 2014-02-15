@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int main(int argc, char * * argv)
+{
+  //Variables
+  int index=0; 
+
+  //Executions
+  for(index=1;index<argc;index++)
+    {
+      printf("%s",argv[index]);
+      printf(" ");
+    }
+
+  printf("\n");
+  return 0;
+}
