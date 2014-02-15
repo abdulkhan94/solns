@@ -22,8 +22,10 @@ int main(int argc, char * * argv)
   int bufflength=2000;
   char*buffer=malloc(sizeof(char)*bufflength);
   int vag=0;
-
+  int alpha=0;
+  alpha=alpha+1;
   //Executions
+ 
   if (argc < 2)
     {
       
