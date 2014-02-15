@@ -23,6 +23,7 @@ int main(int argc, char * * argv)
   char*buffer=malloc(sizeof(char)*bufflength);
   int vag=0;
 
+  //Executions
   if (argc < 2)
     {
       
@@ -50,6 +51,7 @@ int main(int argc, char * * argv)
 
 	  printf(" -q, --quiet suppress all output\n");
 	  printf("\n");
+
 	  printf(" Exit status is 0 if any line is selected, 1 otherwise;\n");
 	  printf(" if any error occurs, then the exit status is 2.\n\n");
 	  free(buffer);
