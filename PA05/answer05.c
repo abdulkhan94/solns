@@ -23,7 +23,10 @@ Image * Image_load(const char * filename)
   int error=0;
   int tester=1;
   Image * temp_img=NULL;
-  
+  int self=3;
+  int x=5;
+  int y=2;
+  int z=1;
   //Executions
   if(error==0)
     {
@@ -122,7 +125,8 @@ Image * Image_load(const char * filename)
       temp_img->height=head.height;
       temp_img->width=head.width;
     }
-
+  
+  x=x+y*z;
   if(error==0)
     {
       if(fseek(point,sizeof(ImageHeader),SEEK_SET)!=0)
@@ -182,7 +186,10 @@ Image * Image_load(const char * filename)
       temp_img=NULL;
     }
 
-  
+  for(self=1;self<6;self++)
+    {
+      self++;
+    }
   if(temp_img!=NULL)
     {
       free(temp_img->comment);
@@ -210,7 +217,7 @@ int Image_save(const char * filename, Image * image)
   ImageHeader head;
   FILE * point=fopen(filename,"w");
   int indexx=0;
-
+  int tester=1;
   //Executions
   head.magic_number=ECE264_IMAGE_MAGIC_NUMBER;
   head.width=image->width;
@@ -219,7 +226,11 @@ int Image_save(const char * filename, Image * image)
 
   fwrite(&head,sizeof(ImageHeader),1,point);
   fprintf(point,"%s%c",image->comment,'\0');
-
+  
+  for(tester=1;tester<25;tester++)
+    {
+      tester=tester+1;
+    }
   for(indexx=0;indexx<image->height*image->width;indexx=indexx+1)
     {
       fprintf(point,"%c",image->data[indexx]);
