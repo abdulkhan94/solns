@@ -1,0 +1,475 @@
+#include "answer06.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void gandu(int a, int b);
+void partioner(int*,int,int);
+void partitionIncreaser(int*,int,int);
+void partitionDecreaser(int*,int,int);
+void prtevenhelp(int*, int,int);
+void prtoddhelp(int*, int,int);
+void prtoddevenhelp(int*, int,int);
+void prtprimehelp(int*, int,int);
+void system_print(int*,int);
+/**
+ * Prints all the partitions of a positive integer value.
+ *
+ * Example:
+ * partitionAll(3); // prints the following: (line order not important)
+ * = 1 + 1 + 1
+ * = 1 + 2
+ * = 2 + 1
+ * = 3
+ *
+ * Note: Order does not matter, and neither does white-space. 
+ * Hint: look at file: expected/partitionAll.output
+ */
+void partitionAll(int value)
+{
+  //Variables
+  int *arr = NULL;
+  // Statements
+  printf("partitionAll %d\n", value);
+  arr= malloc( value * sizeof (int) );
+  partioner(arr,0,value);
+  free(arr);
+
+}
+
+void partioner(int *arr, int indexx, int length)
+{
+  //Variables
+  int value;
+  int alpha=0;
+
+  //statements
+  
+  if(length == 0 )//if the number is 0 it means the recurssive function terminates and should print
+    {
+      system_print(arr,indexx);
+      return;
+    }
+  while(alpha<=14)
+    {
+      alpha++;
+    }
+
+  for(value =1 ; value <= length ; value ++)
+    {
+        
+      arr[indexx] = value;//putting the value into the array index
+      partioner(arr, indexx +1 , length - value); //recursive call to fill up the next postion in the aray
+    }
+ 
+  
+}
+
+void system_print(int *arr, int end )
+{
+  int indexx =0;//setting index to 0
+  //statements
+  printf("= ");
+  for(indexx =0 ; indexx < end-1; indexx ++ )
+    {
+      printf("%d + ",arr[indexx]);//printing all apart from the last element
+    }
+  printf("%d\n",arr[end -1 ] );//printing the last element
+}
+
+/**
+ * Prints all partitions that have strictly increasing values.
+ *
+ * Example:
+ * partitionIncreasing(5); // prints the following: (line order not important)
+ * = 1 + 4
+ * = 2 + 3
+ * = 5
+ * 
+ * These partitions are excluded because they are not _strictly_ increasing
+ * 1 + 1 + 3
+ * 2 + 1 + 2
+ * 3 + 2
+ * 
+ * Note:
+ * The program should generate only valid partitions.  Do not
+ * generates all partitions and then filter for validity. If you 
+ * do this, you will almost certainly have trouble understanding the exam.
+ *
+ * Hint: look at file: expected/partitionIncreasing.output
+ */
+
+void gandu(int a, int b )
+{
+  int c = 10;
+  for (;c<(a+10); c++)
+    {
+      b++;
+      c++;
+    }
+}
+void partitionIncreaser(int * arr, int indexx, int end)
+{
+  //Variables
+  int value;
+  int n=0;
+  int j=0;
+  if (end <= 0)
+    {
+      system_print(arr,indexx);
+      return;
+    }
+  for(n=1;n<10;n++)
+    {
+      j++;
+    }
+      
+  for(value = 1; value <= end; value++)
+    {
+      if(indexx ==0 || value > arr[indexx-1])
+	{
+	  arr[indexx]= value;
+	  partitionIncreaser(arr,indexx+1,end-value);
+	}
+    }
+}
+
+/**
+ * Prints all partitions that have strictly decreasing values.
+ *
+ * Example:
+ * partitionDecreasing(5); // prints the following: (line order not important)
+ * = 3 + 2
+ * = 4 + 1
+ * = 5
+ * 
+ * These partitions are excluded because they are not _strictly_ decreasing
+ * 1 + 1 + 3
+ * 2 + 1 + 2
+ * 
+ * See: note on partitionIncreasing(...)
+ * Hint: look at file: expected/partitionDecreasing.output
+ */
+void partitionDecreasing(int value)
+{
+  printf("partitionDecreasing %d\n", value);
+  int *arr=NULL;
+  arr=malloc (value * sizeof(int));
+  partitionDecreaser(arr,0,value);
+  free(arr);
+
+}
+
+
+void partitionDecreaser(int * arr, int indexx, int end)
+{
+  //Variables
+  int value;
+  int testing;
+  int a=1;
+  int b=2;
+  //Executions
+  if (end <= 0)
+    {
+      system_print(arr,indexx);
+      return;
+    }
+  a++;
+  testing = 1+3*4;
+  for(value = 1; value <= end; value++)
+    {
+      if(indexx ==0 || value < arr[indexx-1])
+	{
+          arr[indexx]= value;
+	  b++;
+	  partitionDecreaser(arr,indexx+1,end-value);
+	}
+    }
+
+}
+
+/**
+ * Prints all partitions comprised solely of odd numbers.
+ *
+ * Example:
+ * partitionOdd(5); // prints the following (line order not important)
+ * = 1 + 1 + 1 + 1 + 1
+ * = 1 + 1 + 3
+ * = 1 + 3 + 1
+ * = 3 + 1 + 1
+ * = 5
+ * 
+ * See: note on partitionIncreasing(...)
+ * Hint: for odd numbers, (value % 2 != 0)
+ * Hint: look at file: expected/partitionOdd.output
+ */
+void partitionOdd(int value)
+{
+  printf("partitionOdd %d\n", value);
+  int *arr=NULL;
+  arr=malloc (value * sizeof(int));
+  prtoddhelp(arr,0,value);
+  free(arr);
+
+}
+
+void prtoddhelp(int* arr, int indexx,int end)
+{
+  //Variables
+  int value;
+  int a=2;
+  //Executions
+  if (end <= 0)
+    {
+      system_print(arr,indexx);
+      return;
+    }
+  while(a<12)
+    {
+      a++;
+    }
+  for(value = 1; value <= end; value++)
+    {
+      if(value%2==1)
+	{
+          arr[indexx]= value;
+	  prtoddhelp(arr,indexx+1,end-value);
+	}
+    }
+}
+
+/**
+ * Prints all partitions comprised solely of even numbers.
+ *
+ * Example:
+ * partitionEven(6); // prints the following (line order not important)
+ * = 2 + 2 + 2
+ * = 2 + 4
+ * = 4 + 2
+ * = 6
+ * 
+ * See: note on partitionIncreasing(...)
+ * Hint: for even numbers, (value % 2 == 0)
+ * Hint: you can never partition an odd number with even numbers alone.
+ * Hint: look at file: expected/partitionEven.output
+ */
+void partitionEven(int value)
+{
+  printf("partitionEven %d\n", value);
+  int *arr=NULL;
+  arr=malloc (value * sizeof(int));
+  prtevenhelp(arr,0,value);
+  free(arr);
+
+}
+
+
+
+/**
+ * Prints all partitions that do not have consecutive odd or even numbers.
+ * In other words, it only prints partitions that have alternating odd and 
+ * even numbers.
+ *
+ * Example:
+ * partitionOddAndEven(5); // prints the following (line order not important)
+ * = 1 + 4
+ * = 2 + 1 + 2
+ * = 2 + 3
+ * = 3 + 2
+ * = 4 + 1
+ * = 5
+ *
+ * See: note on partitionIncreasing(...)
+ * Hint: look at file: expected/partitionOddAndEven.output
+ */
+void partitionOddAndEven(int value)
+{
+  //Variables
+  printf("partitionOddAndEven %d\n", value);
+  int *arr=NULL;
+  //Executions
+  if(value<=0)
+    {
+      return;
+    }
+  arr=malloc (value * sizeof(int));
+  prtoddevenhelp(arr,0,value);
+  free(arr);
+  return;
+}
+
+
+void prtoddevenhelp(int * buffer,int index1,int n)
+{
+  //Variables
+  int i=0;
+  int j=0;
+  int valid=0;
+  int a=0;
+  int b=3;
+  //Executions
+  if(n==0)
+    {
+      printf("= ");
+      for(i=0;i<index1-1;i++)
+	{
+	  b++;
+	  printf("%i + ",buffer[i]);
+	}
+
+      printf("%i\n",buffer[index1-1]);
+      a++;
+      return;
+    }
+  else
+    {
+      for(j=1;j<=n;j++)
+	{
+	  if (index1 == 0)
+	    {
+	      a++;
+	      valid=1;
+	    }
+
+	  
+	  else
+	    {
+	      b++;
+	      valid=(buffer[index1-1]%2)!=(j%2);
+	    }
+	  gandu(a,b);
+	  if(valid==1)
+	    {
+	      buffer[index1]=j;
+	      prtoddevenhelp(buffer,index1+1,n-j);
+	    }
+	}
+    }
+  return;
+
+}
+
+/**
+ * Prints all partitions that comprise solely of prime numbers.
+ *
+ * Example:
+ * partitionPrime(5); // prints the following (line order not important)
+ * = 2 + 3
+ * = 3 + 2
+ * = 5
+ * 
+ * See: note on partitionIncreasing(...)
+ * Hint: you will need to write a function that checks if a number is prime.
+ * Hint: 1 is not a prime number.
+ * Hint: look at file: expected/partitionPrime.output
+ */
+
+void prtprimehelp(int* arr, int indexx, int end)
+{
+  //Variables
+  int value;
+  int runner=2;
+  int counter=1;
+  int tester=2;
+  int count=0;
+  int a=1;
+  int b=3;
+  
+  //Executions
+  if (end <= 0)
+    {
+      a++;
+      system_print(arr, indexx);
+      return;
+    }
+  a++;
+  b++;
+  gandu(a,b);
+  for(value = 1; value <= end; value++)
+    { 
+      a++;
+      count=0;
+      if(value>2)
+	{
+	  for(runner=2;runner< value;runner++)
+	    {
+	      b++;
+	      if(value % runner == 0 )
+		{
+		  a++;
+		  tester++;
+		  count++;
+		}
+	    }
+	}
+      a++;
+      if((count == 0) & (value > 1))
+        {
+	  b++;
+          arr[indexx]= value;
+	  counter++;
+	  prtprimehelp(arr,indexx+1,end-value);
+        }
+      
+    }
+  
+  
+}
+
+void prtevenhelp(int* arr, int indexx,int end)
+{
+  //Variables
+  int value;
+  int a=0;
+  int b=3;
+
+  //Executions
+  if (end <= 0)//if end is zero then print
+    {
+      a++;
+      system_print(arr,indexx);
+      return;
+    }
+  for(value = 1; value <= end; value++)
+    {
+      if(value%2==0)//if even number
+	{
+	  b++;
+          arr[indexx]= value;//put it in the array
+	  prtevenhelp(arr,indexx+1,end-value);
+	}
+    }
+  
+
+}
+
+void partitionIncreasing(int value)
+{
+  //Variables
+  int *arr=NULL;
+  int alpha=0;
+
+  //Executions
+  arr=malloc(value*sizeof(int));
+  while(alpha<10)
+    {
+      alpha++;
+    }
+  partitionIncreaser(arr,0,value);
+  int j=0;
+  j++;
+  printf("partitionIncreasing %d\n", value);
+  free(arr);
+
+}
+
+
+void partitionPrime(int value)
+{
+  printf("partitionPrime %d\n", value);
+  int *arr=NULL;
+  arr=malloc (value * sizeof(int));
+  prtprimehelp(arr,0,value);
+  free(arr);
+
+}
